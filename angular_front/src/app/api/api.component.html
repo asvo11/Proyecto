@@ -1,0 +1,92 @@
+<div class="container w-50 mt-4">
+    <h1 class="text-center pb-4 ">Agregar o actualizar datos</h1>
+    <form  #isFormValid="ngForm" [formGroup]="commandFormGroup" class="form-group">
+
+          <div class="mb-3">
+            <!-- name -->
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control" name="name" formControlName="name" id="name" placeholder="name">
+
+            <!-- name errors -->
+            <div *ngIf="name?.touched && name?.invalid">
+              <small class="text-danger" *ngIf="name?.errors?.['required']">name is required</small>
+              <small class="text-danger" *ngIf="name?.errors?.['minlength']">name is too short</small>
+            </div>
+          </div>
+
+          <!--age-->
+          <div class="mb-3">
+            <!-- name -->
+            <label for="age" class="form-label">age</label>
+            <input type="text" class="form-control" name="age" formControlName="age" id="age" placeholder="age">
+
+            <!-- name errors -->
+            <div *ngIf="age?.touched && age?.invalid">
+              <small class="text-danger" *ngIf="age?.errors?.['required']">age is required</small>
+              <small class="text-danger" *ngIf="age?.errors?.['minlength']">age is too short</small>
+            </div>
+          </div>
+
+          <!-- price -->
+          <div class="mb-3">
+            <label for="city" class="form-label">city</label>
+            <input type="city" class="form-control" name="city" formControlName="city" id="city" placeholder="city">
+
+            <!-- city errors -->
+            <div *ngIf="city?.touched && city?.invalid">
+              <small class="text-danger" *ngIf="city?.errors?.['required']">city is required</small>
+              <small class="text-danger" *ngIf="city?.errors?.['pattern']">city is invalid</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="country" class="form-control" name="country" formControlName="country" id="country" placeholder="country">
+
+            <!-- country errors -->
+            <div *ngIf="country?.touched && country?.invalid">
+              <small class="text-danger" *ngIf="country?.errors?.['required']">country is required</small>
+              <small class="text-danger" *ngIf="country?.errors?.['pattern']">country is invalid</small>
+            </div>
+          </div>
+
+          <!-- create(add) or update(put) -->
+          <div class="mb-3">
+            <!-- create -->
+            <button *ngIf="!addOrPut" (click)="postCommand()" class="form-control btn btn-dark hvr" [disabled]="!isFormValid.valid">Agregar</button>
+            <!-- update -->
+            <button *ngIf="addOrPut" (click)="putCommand()" class="form-control btn btn-warning hvr" [disabled]="!isFormValid.valid">Actualizar</button>
+          </div>
+    </form>
+</div>
+
+<div *ngIf="array.length != 0" class="container w-50">
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th>#Id</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>City</th>
+              <th>Country</th>
+              <th>Edit</th>
+              <th>Delete</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let eachCmd of array">
+              <td scope="row">{{eachCmd.id}}</td>
+              <td>{{eachCmd.name}}</td>
+              <td>{{eachCmd.age}}</td>
+              <td>{{eachCmd.city}}</td>
+              <td>{{eachCmd.country}}</td>
+              <td><button (click)="editCommand(eachCmd)" class="btn btn-warning">Actulizar</button></td>
+              <td><button (click)="deleteCommand(eachCmd.id)" class="btn btn-danger">Eliminar</button></td>
+          </tr>
+
+      </tbody>
+  </table>
+</div>
+
+
+
